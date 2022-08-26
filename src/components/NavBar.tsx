@@ -48,7 +48,7 @@ export const NavBar=(props:any)=>
         <div>
              <div className="dark:bg-slate-800  dark:text-white bg-white text-black shadow-lg shadow-black">
                 <header className=" flex justify-between p-7">
-                    <p className=" margin text-[1.5rem]" >Te amo, Sou feliz desde o dia que comecei a namorar consigo</p>
+                    <p className=" margin text-[1.5rem]" >Onde no Mundo?</p>
                     <button className=" margin flex items-center gap-5"
                         onClick={()=>{
                             setDarkMode(!isDarkMode)

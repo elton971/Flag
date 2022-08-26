@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.margin{
+    @apply mx-10 font-bold
+}
+.margin_botton{
+    @apply my-2
+}

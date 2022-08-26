@@ -31,6 +31,18 @@ export const NavBar=(props:any)=>
         }
       }
 
+    const filteredCountry=(regiaoName:string)=>{
+        const filtered=props.data.filter((elements:any)=>{
+            const regiao=elements.region;
+            if(regiao.toLowerCase().includes(regiaoName.toLowerCase()))
+            {
+                return elements
+            }
+        })
+        props.setData(filtered)
+
+    }
+
     return(
         
         <div>
@@ -71,12 +83,26 @@ export const NavBar=(props:any)=>
                         >
 
                             <TreeItem nodeId="1" label="Filter By Region">
-                            <TreeItem nodeId="2" label="Europa" />
-                            <TreeItem nodeId="2" label="America" />
-                            <TreeItem nodeId="2" label="Asia" />
-                            <TreeItem nodeId="2" label="Africa" />
-                            <TreeItem nodeId="2" label="Oceania" />
-                        </TreeItem>
+                                <TreeItem nodeId="2" label="Europe" 
+                                onClick={()=>{filteredCountry("Europe")}}
+                                 />
+                                <TreeItem nodeId="2" label="Americas" 
+                                onClick={()=>{filteredCountry("Americas")}}
+
+                                />
+                                <TreeItem nodeId="2" label="Asia" 
+                                onClick={()=>{filteredCountry("Asia")}}
+
+                                />
+                                <TreeItem nodeId="2" label="Africa"
+                                onClick={()=>{filteredCountry("Africa")}}
+
+                                />
+                                <TreeItem nodeId="2" label="Oceania"
+                                onClick={()=>{filteredCountry("Oceania")}}
+                                
+                                />
+                            </TreeItem>
                         
                     </TreeView>
                         

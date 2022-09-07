@@ -8,65 +8,71 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 
-export const NavBar=(props:any)=>
-{
-    const [isDarkMode,setDarkMode]=useState(false)
-    const [pesquisa,setPesquisa]=useState("");
+export const NavBar = (props:any) => {
+    const [ isDarkMode, setDarkMode ] = useState(true)
+    const [ pesquisa, setPesquisa ] = useState("");
     
-
     //Para funcionar o enter do pesquisar
     //https://restcountries.com/v3.1/name/{name}
     
     const handleKeyDown = (event: { key: string }) => {
-        if (event.key === 'Enter') {
-            
-            const filtered=props.data.filter((elements:any)=>{
-                const name=elements.name.common
-                if(name.toLowerCase().includes(pesquisa.toLowerCase()))
-                {
+        if (event.key === 'Enter') {        
+            const filtered = props.data.filter((elements:any) => {
+                const name = elements.name.common
+                if (name.toLowerCase().includes(pesquisa.toLowerCase())) {
                     return elements
                 }
             })
             props.setData(filtered);
         }
-      }
+    }
 
-    const filteredCountry=(regiaoName:string)=>{
-        const filtered=props.data.filter((elements:any)=>{
+    const filteredCountry = (regiaoName:string) => {
+        const filtered = props.data.filter((elements:any) => {
             const regiao=elements.region;
-            if(regiao.toLowerCase().includes(regiaoName.toLowerCase()))
-            {
+            if(regiao.toLowerCase().includes(regiaoName.toLowerCase())) {
                 return elements
             }
         })
         props.setData(filtered)
-
     }
 
+    useEffect(() => {
+        document.querySelector('html')?.classList.add("dark")
+    }, [])
+
     return(
-        
-        <div>
-             <div className="dark:bg-slate-800  dark:text-white bg-white text-black shadow-lg shadow-black">
-                <header className=" flex justify-between p-7">
-                    <p className=" margin text-[1.5rem]" >Onde no Mundo?</p>
-                    <button className=" margin flex items-center gap-5"
+        <div className="mb-24 lg:mb-5">
+            <div className="dark:bg-slate-800 rounded-md dark:text-white bg-white text-black dark:shadow-white">
+                <header className="flex justify-between p-7">
+                    <p className="margin text-2xl">Onde no Mundo?</p>
+                    <button 
+                        className="flex items-center gap-5"
                         onClick={()=>{
+                            //para ativar dark mode
                             setDarkMode(!isDarkMode)
-                            document.querySelector('html')?.classList.toggle("dark")//para aticar dark mode
-                        }}
+                            document.querySelector('html')?.classList.toggle("dark")
+                        }} 
                     >
-                        <img src={
-                            isDarkMode ? lua : sol
-                        }  className="w-8"/>
-                        <p >{isDarkMode ? "Dark Mode" : "Light Mode"}</p>
+                        <img 
+                            src={ isDarkMode ? lua : sol }
+                            className="min-w-min w-8" 
+                        />
+                        <p className="hidden md:block">{ isDarkMode ? "Dark Mode" : "Light Mode" }</p>
                     </button>
                 </header>
             </div>
-            <div className="flex justify-between mx-[4.2rem] my-10">
-                <div className=" dark:bg-slate-800 bg-white shadow-sm shadow-black py-4  px-10 w-[35rem] h-15 rounded-lg flex gap-5">
-                    <img src={lupa} alt=""
-                    className="w-8 h-8"  />
-                    <input className="bg-transparent outline-none w-80 dark:text-white text-black dark:placeholder-white placeholder-black max-h-20" type="text" placeholder="Seach for a country..."
+            <div className="flex flex-wrap justify-between mx-auto gap-5 my-10">
+                <div className=" dark:bg-slate-800 bg-white py-4 px-10 w-[35rem] h-15 rounded-lg flex gap-5">
+                    <img 
+                        src={ lupa } 
+                        alt=""
+                        className="w-8 h-8"
+                    />
+
+                    <input 
+                        className="bg-transparent outline-none max-w-sm w-full dark:text-white text-black dark:placeholder-white placeholder-black max-h-20" type="text" 
+                        placeholder="Seach for a country..."
                         onChange={(e)=>{
                             setPesquisa(e.target.value)
                         }}
@@ -74,40 +80,28 @@ export const NavBar=(props:any)=>
                     />
                 </div>
                 <div className="relative w-64">
-                <div className="absolute top-0 right-0 ">
-			        <div className=" dark:bg-slate-800 dark:text-white bg-white text-black py-6 px-10 rounded-lg  flex items-center dark:hover:bg-slate-700 transition-colors duration-500  ">
-				        <TreeView
-                            aria-label="file system navigator"
-                            defaultCollapseIcon={<ExpandMoreIcon />}
-                            defaultExpandIcon={<ChevronRightIcon />}
-                        >
-
-                            <TreeItem nodeId="1" label="Filter By Region">
-                                <TreeItem nodeId="2" label="Europe" 
-                                onClick={()=>{filteredCountry("Europe")}}
-                                 />
-                                <TreeItem nodeId="2" label="Americas" 
-                                onClick={()=>{filteredCountry("Americas")}}
-
-                                />
-                                <TreeItem nodeId="2" label="Asia" 
-                                onClick={()=>{filteredCountry("Asia")}}
-
-                                />
-                                <TreeItem nodeId="2" label="Africa"
-                                onClick={()=>{filteredCountry("Africa")}}
-
-                                />
-                                <TreeItem nodeId="2" label="Oceania"
-                                onClick={()=>{filteredCountry("Oceania")}}
-                                
-                                />
-                            </TreeItem>
-                        
-                    </TreeView>
-                        
-                </div>
-                </div>
+                    <div className="absolute top-0 left-0 ">
+                        <div className="dark:bg-slate-800 dark:text-white bg-white text-black py-6 px-10 rounded-lg flex items-center transition-colors duration-500">
+                            <TreeView
+                                aria-label="file system navigator"
+                                defaultCollapseIcon={<ExpandMoreIcon />}
+                                defaultExpandIcon={<ChevronRightIcon />}
+                            >
+                                <TreeItem nodeId="1" label="Filter By Region" className="!bg-red">
+                                    <TreeItem nodeId="2" label="Europe" 
+                                    onClick={()=>{filteredCountry("Europe")}} />
+                                    <TreeItem nodeId="2" label="Americas" 
+                                    onClick={()=>{filteredCountry("Americas")}} />
+                                    <TreeItem nodeId="2" label="Asia" 
+                                    onClick={()=>{filteredCountry("Asia")}} />
+                                    <TreeItem nodeId="2" label="Africa"
+                                    onClick={()=>{filteredCountry("Africa")}} />
+                                    <TreeItem nodeId="2" label="Oceania"
+                                    onClick={()=>{filteredCountry("Oceania")}} />
+                                </TreeItem>
+                            </TreeView> 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

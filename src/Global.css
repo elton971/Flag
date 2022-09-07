@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.margin{
+.margin {
     @apply mx-10 font-bold
 }
-.margin_botton{
+
+.margin_botton {
     @apply my-2
+}
+
+.css-1g86id8-MuiTreeItem-content.Mui-selected {
+    @apply !bg-transparent
 }

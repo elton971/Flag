@@ -1,15 +1,12 @@
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
-
 import { Card } from "../components/Card";
 
-
-export const MainPage=(props:any)=>{
-
+export const MainPage = (props:any) => {
     return(
-        <div>   
-            <div className="grid grid-cols-4 gap-10 m-20  ">    
+        <>   
+            <div className="flex flex-wrap gap-4 justify-center">    
                 {
                     props.dados.length>0 ? (
                     props.dados.map((item:{ name: {common:string; official: string; }; population: string; region: string; flags: { svg: string; }; capital: string; })=>{
@@ -35,7 +32,7 @@ export const MainPage=(props:any)=>{
                     )
                 }
             </div>
-        </div>
+        </>
 
     )
 }
